@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.topflow.dao.inter.TmPbcInfoMapper">
+  <resultMap id="BaseResultMap" type="net.topflow.dao.model.TmPbcInfo">
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="CASE_NO" jdbcType="VARCHAR" property="caseNo" />
+    <result column="PHONE_NO" jdbcType="VARCHAR" property="phoneNo" />
+    <result column="JOB" jdbcType="VARCHAR" property="job" />
+    <result column="INDUSTRY" jdbcType="VARCHAR" property="industry" />
+    <result column="RESIDENTIAL_ADDRESS" jdbcType="VARCHAR" property="residentialAddress" />
+    <result column="RESIDENTIAL_TEL" jdbcType="VARCHAR" property="residentialTel" />
+    <result column="COMPANY_ADDRESS" jdbcType="VARCHAR" property="companyAddress" />
+    <result column="COMPANY_TEL" jdbcType="VARCHAR" property="companyTel" />
+    <result column="CREATED_DATETIME" jdbcType="TIMESTAMP" property="createdDatetime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, CASE_NO, PHONE_NO, JOB, INDUSTRY, RESIDENTIAL_ADDRESS, RESIDENTIAL_TEL, COMPANY_ADDRESS, 
+    COMPANY_TEL, CREATED_DATETIME
+  </sql>
+  <select id="selectByExample" parameterType="net.topflow.dao.model.TmPbcInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tm_pbc_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="net.topflow.dao.model.TmPbcInfoExample">
+    delete from tm_pbc_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.topflow.dao.model.TmPbcInfo">
+    insert into tm_pbc_info (ID, CASE_NO, PHONE_NO, 
+      JOB, INDUSTRY, RESIDENTIAL_ADDRESS, 
+      RESIDENTIAL_TEL, COMPANY_ADDRESS, COMPANY_TEL, 
+      CREATED_DATETIME)
+    values (#{id,jdbcType=BIGINT}, #{caseNo,jdbcType=VARCHAR}, #{phoneNo,jdbcType=VARCHAR}, 
+      #{job,jdbcType=VARCHAR}, #{industry,jdbcType=VARCHAR}, #{residentialAddress,jdbcType=VARCHAR}, 
+      #{residentialTel,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR}, #{companyTel,jdbcType=VARCHAR}, 
+      #{createdDatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.topflow.dao.model.TmPbcInfo">
+    insert into tm_pbc_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="caseNo != null">
+        CASE_NO,
+      </if>
+      <if test="phoneNo != null">
+        PHONE_NO,
+      </if>
+      <if test="job != null">
+        JOB,
+      </if>
+      <if test="industry != null">
+        INDUSTRY,
+      </if>
+      <if test="residentialAddress != null">
+        RESIDENTIAL_ADDRESS,
+      </if>
+      <if test="residentialTel != null">
+        RESIDENTIAL_TEL,
+      </if>
+      <if test="companyAddress != null">
+        COMPANY_ADDRESS,
+      </if>
+      <if test="companyTel != null">
+        COMPANY_TEL,
+      </if>
+      <if test="createdDatetime != null">
+        CREATED_DATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="caseNo != null">
+        #{caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNo != null">
+        #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null">
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="residentialAddress != null">
+        #{residentialAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="residentialTel != null">
+        #{residentialTel,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null">
+        #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="companyTel != null">
+        #{companyTel,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDatetime != null">
+        #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.topflow.dao.model.TmPbcInfoExample" resultType="java.lang.Long">
+    select count(*) from tm_pbc_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tm_pbc_info
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.caseNo != null">
+        CASE_NO = #{record.caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneNo != null">
+        PHONE_NO = #{record.phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.job != null">
+        JOB = #{record.job,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industry != null">
+        INDUSTRY = #{record.industry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residentialAddress != null">
+        RESIDENTIAL_ADDRESS = #{record.residentialAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.residentialTel != null">
+        RESIDENTIAL_TEL = #{record.residentialTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyAddress != null">
+        COMPANY_ADDRESS = #{record.companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyTel != null">
+        COMPANY_TEL = #{record.companyTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDatetime != null">
+        CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tm_pbc_info
+    set ID = #{record.id,jdbcType=BIGINT},
+      CASE_NO = #{record.caseNo,jdbcType=VARCHAR},
+      PHONE_NO = #{record.phoneNo,jdbcType=VARCHAR},
+      JOB = #{record.job,jdbcType=VARCHAR},
+      INDUSTRY = #{record.industry,jdbcType=VARCHAR},
+      RESIDENTIAL_ADDRESS = #{record.residentialAddress,jdbcType=VARCHAR},
+      RESIDENTIAL_TEL = #{record.residentialTel,jdbcType=VARCHAR},
+      COMPANY_ADDRESS = #{record.companyAddress,jdbcType=VARCHAR},
+      COMPANY_TEL = #{record.companyTel,jdbcType=VARCHAR},
+      CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

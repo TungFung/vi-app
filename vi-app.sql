@@ -1,0 +1,172 @@
+CREATE TABLE TM_CASE(
+    CASE_NO BIGINT AUTO_INCREMENT COMMENT 'case No',
+    CASE_STATUS VARCHAR(10) COMMENT 'case status',
+    CASE_TYPE VARCHAR(10) COMMENT 'case type',
+    CASE_LEVEL INT COMMENT 'case level',
+    WORKER_CODE VARCHAR(32) COMMENT 'worker code',
+    CUST_NAME VARCHAR(32) COMMENT 'cust name',
+    LOAN_AMOUNT DOUBLE(13,2) COMMENT 'loan amount',
+    APPLY_DATETIME DATETIME COMMENT 'apply datetime',
+    APPLY_PHONE_NO VARCHAR(20) COMMENT 'apply phone no',
+    CREATOR_ID VARCHAR(32) COMMENT 'creator id',
+    CREATED_DATETIME DATETIME COMMENT 'created datetime',
+    LAST_MODIFIER_ID VARCHAR(32) COMMENT 'last modifier id',
+    LAST_MODIFIED_DATETIME DATETIME COMMENT 'last modified datetime',
+PRIMARY KEY(CASE_NO)
+)COMMENT 'case info';
+
+CREATE TABLE TM_CASE_HIS(
+    CASE_NO BIGINT AUTO_INCREMENT COMMENT 'case No',
+    CASE_STATUS VARCHAR(10) COMMENT 'case status',
+    CASE_TYPE VARCHAR(10) COMMENT 'case type',
+    CASE_LEVEL INT COMMENT 'case level',
+    WORKER_CODE VARCHAR(32) COMMENT 'worker code',
+    CUST_NAME VARCHAR(32) COMMENT 'cust name',
+    LOAN_AMOUNT DOUBLE(13,2) COMMENT 'loan amount',
+    APPLY_DATETIME DATETIME COMMENT 'apply datetime',
+    APPLY_PHONE_NO VARCHAR(20) COMMENT 'apply phone no',
+    CREATOR_ID VARCHAR(32) COMMENT 'creator id',
+    CREATED_DATETIME DATETIME COMMENT 'created datetime',
+    LAST_MODIFIER_ID VARCHAR(32) COMMENT 'last modifier id',
+    LAST_MODIFIED_DATETIME DATETIME COMMENT 'last modified datetime',
+PRIMARY KEY(CASE_NO)
+)COMMENT 'historical case info';
+
+CREATE TABLE TM_USER(
+	ID BIGINT AUTO_INCREMENT COMMENT 'primary key',
+    WORKER_CODE VARCHAR(32) COMMENT 'worker code',
+    WORKER_NAME VARCHAR(32) COMMENT 'worker name',
+    PHONE_NO VARCHAR(16) COMMENT 'phone no',
+    E_MAIL_ADDRESS VARCHAR(32) COMMENT 'e-mail address',
+    SIGN_STATUS VARCHAR(10) COMMENT 'sign status:0-sign out;1-sign in',
+    BUSY_STATUS VARCHAR(10) COMMENT 'busy status:0-free;1-busy',
+    CREATED_DATETIME DATETIME COMMENT 'created datetime',
+    LAST_MODIFIED_DATETIME DATETIME COMMENT 'last modified datetime',
+PRIMARY KEY(ID)
+) COMMENT 'user info';
+
+CREATE TABLE TM_GROUP(
+	ID BIGINT AUTO_INCREMENT COMMENT 'primary key',
+    GROUP_CODE VARCHAR(32) COMMENT 'group code',
+    GROUP_NAME VARCHAR(32) COMMENT 'group name',
+    GROUP_LEADER VARCHAR(32) COMMENT 'group leader',
+    CREATED_DATETIME DATETIME COMMENT 'created datetime',
+    LAST_MODIFIED_DATETIME DATETIME COMMENT 'last modified datetime',
+PRIMARY KEY(ID)
+) COMMENT 'group info';
+
+CREATE TABLE TM_PARAM(
+	ID BIGINT AUTO_INCREMENT COMMENT 'primary key',
+    PARAM_TYPE VARCHAR(10) COMMENT 'paramter type',
+    PARAM_KEY VARCHAR(32) COMMENT 'parameter key',
+    PARAM_VALUE VARCHAR(64) COMMENT 'parameter value',
+    CREATED_DATETIME DATETIME COMMENT 'created datetime',
+    LAST_MODIFIED_DATETIME DATETIME COMMENT 'last modified datetime',
+PRIMARY KEY(ID)
+) COMMENT 'system parameter info';
+
+CREATE TABLE TM_PBC_INFO(
+	ID BIGINT AUTO_INCREMENT COMMENT 'primary key',
+    CASE_NO VARCHAR(32) COMMENT 'case No',
+    PHONE_NO VARCHAR(32) COMMENT 'phone No',
+    JOB VARCHAR(32) COMMENT 'job',
+    INDUSTRY VARCHAR(32) COMMENT 'industry',
+    RESIDENTIAL_ADDRESS VARCHAR(256) COMMENT 'residential address',
+    RESIDENTIAL_TEL VARCHAR(32) COMMENT 'residential tel No',
+    COMPANY_ADDRESS VARCHAR(256) COMMENT 'company address',
+    COMPANY_TEL VARCHAR(32) COMMENT 'company tel No',
+    CREATED_DATETIME DATETIME COMMENT 'created datetime',
+PRIMARY KEY(ID),
+KEY(CASE_NO)
+) COMMENT 'people bank of china info';
+
+CREATE TABLE TM_POLICE_INFO(
+	ID BIGINT AUTO_INCREMENT COMMENT 'primary key',
+    CASE_NO VARCHAR(32) COMMENT 'case No',
+    NAME VARCHAR(64) COMMENT 'name',
+    USED_NAME VARCHAR(64) COMMENT 'used name',
+    CENSUS_REGISTER VARCHAR(64) COMMENT 'census register',
+    BIRTHDAY DATETIME COMMENT 'birthday',
+    ID_NO VARCHAR(18) COMMENT 'id card No',
+    ANIMAL VARCHAR(1) COMMENT 'animal',
+    MARITAL_STATUS VARCHAR(10) COMMENT 'marital status',
+    CREATED_DATETIME DATETIME COMMENT 'created datetime',
+PRIMARY KEY(ID),
+KEY(CASE_NO)
+) COMMENT 'police info';
+
+CREATE TABLE TM_EDUCATION_INFO(
+	ID BIGINT AUTO_INCREMENT COMMENT 'primary key',
+    CASE_NO VARCHAR(32) COMMENT 'case No',
+    EDUCATION_BACKGROUND VARCHAR(32) COMMENT 'education background',
+    DEGREE VARCHAR(32) COMMENT 'education degree',
+    GRADUATE_INSTITUTION VARCHAR(128) COMMENT 'graduate institution',
+    ENROLLMENT_TIME VARCHAR(32) COMMENT 'time of enrollment',
+    GRADUATION_TIME VARCHAR(32) COMMENT 'time of education',
+    MAJOR VARCHAR(128) COMMENT 'major',
+    CREATED_DATETIME DATETIME COMMENT 'created datetime',
+PRIMARY KEY(ID),
+KEY(CASE_NO)
+) COMMENT 'education info';
+
+CREATE TABLE TM_QUESTION(
+	ID BIGINT AUTO_INCREMENT COMMENT 'primary key',
+    CASE_NO VARCHAR(32) COMMENT 'case No',
+    QUESTION VARCHAR(128) COMMENT 'question',
+    QUESTION_RIGHT_ANS VARCHAR(128) COMMENT 'question right answer',
+    QUESTION_TYPE VARCHAR(10) COMMENT 'question type:0-not identity;1-identity',
+    USAGE_FLAG VARCHAR(10) COMMENT 'usage flag:0-obsolete;1-in use',
+    CREATED_DATETIME DATETIME COMMENT 'created datetime',
+PRIMARY KEY(ID),
+KEY(CASE_NO)
+) COMMENT 'question info';
+
+CREATE TABLE TM_QUESTION_ANS(
+	ID BIGINT AUTO_INCREMENT COMMENT 'primary key',
+    CASE_NO VARCHAR(32) COMMENT 'case No',
+    QUESTION_ID BIGINT COMMENT 'question id',
+    QUESTION_ANS VARCHAR(128) COMMENT 'question answer',
+    IS_RIGHT VARCHAR(1) COMMENT 'is answer right:0-wrong;1-right',
+    CREATED_DATETIME DATETIME COMMENT 'created datetime',
+PRIMARY KEY(ID),
+KEY(CASE_NO)
+) COMMENT 'customer question answer record';
+
+CREATE TABLE TM_ASSIGN_REC(
+	ID BIGINT AUTO_INCREMENT COMMENT 'primary key',
+    CASE_NO VARCHAR(32) COMMENT 'case No',
+    ASSIGN_TYPE VARCHAR(10) COMMENT 'assign type:0-manual;1-auto',
+    ORIGIN_WORKER VARCHAR(32) COMMENT 'origin worker',
+    DESIGNATED_WORKER VARCHAR(32) COMMENT 'designated worker',
+    CREATOR_ID VARCHAR(32) COMMENT 'creator id',
+    CREATED_DATETIME DATETIME COMMENT 'created datetime',
+    LAST_MODIFIER_ID VARCHAR(32) COMMENT 'last modifier id',
+    LAST_MODIFIED_DATETIME DATETIME COMMENT 'last modified datetime',
+PRIMARY KEY(ID),
+KEY(CASE_NO)
+) COMMENT 'case assigned record';
+
+CREATE TABLE TM_CALL_REC(
+	ID BIGINT AUTO_INCREMENT COMMENT 'primary key',
+    CASE_NO VARCHAR(32) COMMENT 'case No',
+    CALL_PHONE_NO VARCHAR(32) COMMENT 'call phone No',
+    CALL_STATUS VARCHAR(10) COMMENT 'call status:0-unreach;1-self answer;2-not self answer;3-wrong call',
+    REMARK VARCHAR(300) COMMENT 'remark',
+    SUBMIT_TYPE VARCHAR(10) COMMENT 'submit type:0-hangup;1-refuse;2-pass',
+    CREATOR_ID VARCHAR(32) COMMENT 'creator id',
+    CREATED_DATETIME DATETIME COMMENT 'created datetime',
+PRIMARY KEY(ID),
+KEY(CASE_NO)
+) COMMENT 'call record';
+
+CREATE TABLE TM_HANGUP_REC(
+	ID BIGINT AUTO_INCREMENT COMMENT 'primary key',
+    CASE_NO VARCHAR(32) COMMENT 'case No',
+    HANGUP_REASON VARCHAR(32) COMMENT 'hangup reason',
+    HANGUP_DATETIME DATETIME COMMENT 'hangup until dateime',
+    HANGUP_REMARK VARCHAR(300) COMMENT 'hangup remark',
+    CREATOR_ID VARCHAR(32) COMMENT 'creator id',
+    CREATED_DATETIME DATETIME COMMENT 'created datetime',
+PRIMARY KEY(ID),
+KEY(CASE_NO)
+) COMMENT 'hangup record';

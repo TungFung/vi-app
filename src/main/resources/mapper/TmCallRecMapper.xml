@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.topflow.dao.inter.TmCallRecMapper">
+  <resultMap id="BaseResultMap" type="net.topflow.dao.model.TmCallRec">
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="CASE_NO" jdbcType="VARCHAR" property="caseNo" />
+    <result column="CALL_PHONE_NO" jdbcType="VARCHAR" property="callPhoneNo" />
+    <result column="CALL_STATUS" jdbcType="VARCHAR" property="callStatus" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="SUBMIT_TYPE" jdbcType="VARCHAR" property="submitType" />
+    <result column="CREATOR_ID" jdbcType="VARCHAR" property="creatorId" />
+    <result column="CREATED_DATETIME" jdbcType="TIMESTAMP" property="createdDatetime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, CASE_NO, CALL_PHONE_NO, CALL_STATUS, REMARK, SUBMIT_TYPE, CREATOR_ID, CREATED_DATETIME
+  </sql>
+  <select id="selectByExample" parameterType="net.topflow.dao.model.TmCallRecExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tm_call_rec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="net.topflow.dao.model.TmCallRecExample">
+    delete from tm_call_rec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.topflow.dao.model.TmCallRec">
+    insert into tm_call_rec (ID, CASE_NO, CALL_PHONE_NO, 
+      CALL_STATUS, REMARK, SUBMIT_TYPE, 
+      CREATOR_ID, CREATED_DATETIME)
+    values (#{id,jdbcType=BIGINT}, #{caseNo,jdbcType=VARCHAR}, #{callPhoneNo,jdbcType=VARCHAR}, 
+      #{callStatus,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{submitType,jdbcType=VARCHAR}, 
+      #{creatorId,jdbcType=VARCHAR}, #{createdDatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.topflow.dao.model.TmCallRec">
+    insert into tm_call_rec
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="caseNo != null">
+        CASE_NO,
+      </if>
+      <if test="callPhoneNo != null">
+        CALL_PHONE_NO,
+      </if>
+      <if test="callStatus != null">
+        CALL_STATUS,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+      <if test="submitType != null">
+        SUBMIT_TYPE,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="createdDatetime != null">
+        CREATED_DATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="caseNo != null">
+        #{caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="callPhoneNo != null">
+        #{callPhoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="callStatus != null">
+        #{callStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="submitType != null">
+        #{submitType,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDatetime != null">
+        #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.topflow.dao.model.TmCallRecExample" resultType="java.lang.Long">
+    select count(*) from tm_call_rec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tm_call_rec
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.caseNo != null">
+        CASE_NO = #{record.caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callPhoneNo != null">
+        CALL_PHONE_NO = #{record.callPhoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callStatus != null">
+        CALL_STATUS = #{record.callStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.submitType != null">
+        SUBMIT_TYPE = #{record.submitType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatorId != null">
+        CREATOR_ID = #{record.creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDatetime != null">
+        CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tm_call_rec
+    set ID = #{record.id,jdbcType=BIGINT},
+      CASE_NO = #{record.caseNo,jdbcType=VARCHAR},
+      CALL_PHONE_NO = #{record.callPhoneNo,jdbcType=VARCHAR},
+      CALL_STATUS = #{record.callStatus,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      SUBMIT_TYPE = #{record.submitType,jdbcType=VARCHAR},
+      CREATOR_ID = #{record.creatorId,jdbcType=VARCHAR},
+      CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

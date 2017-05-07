@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.topflow.dao.inter.TmAssignRecMapper">
+  <resultMap id="BaseResultMap" type="net.topflow.dao.model.TmAssignRec">
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="CASE_NO" jdbcType="VARCHAR" property="caseNo" />
+    <result column="ASSIGN_TYPE" jdbcType="VARCHAR" property="assignType" />
+    <result column="ORIGIN_WORKER" jdbcType="VARCHAR" property="originWorker" />
+    <result column="DESIGNATED_WORKER" jdbcType="VARCHAR" property="designatedWorker" />
+    <result column="CREATOR_ID" jdbcType="VARCHAR" property="creatorId" />
+    <result column="CREATED_DATETIME" jdbcType="TIMESTAMP" property="createdDatetime" />
+    <result column="LAST_MODIFIER_ID" jdbcType="VARCHAR" property="lastModifierId" />
+    <result column="LAST_MODIFIED_DATETIME" jdbcType="TIMESTAMP" property="lastModifiedDatetime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, CASE_NO, ASSIGN_TYPE, ORIGIN_WORKER, DESIGNATED_WORKER, CREATOR_ID, CREATED_DATETIME, 
+    LAST_MODIFIER_ID, LAST_MODIFIED_DATETIME
+  </sql>
+  <select id="selectByExample" parameterType="net.topflow.dao.model.TmAssignRecExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tm_assign_rec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="net.topflow.dao.model.TmAssignRecExample">
+    delete from tm_assign_rec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.topflow.dao.model.TmAssignRec">
+    insert into tm_assign_rec (ID, CASE_NO, ASSIGN_TYPE, 
+      ORIGIN_WORKER, DESIGNATED_WORKER, CREATOR_ID, 
+      CREATED_DATETIME, LAST_MODIFIER_ID, LAST_MODIFIED_DATETIME
+      )
+    values (#{id,jdbcType=BIGINT}, #{caseNo,jdbcType=VARCHAR}, #{assignType,jdbcType=VARCHAR}, 
+      #{originWorker,jdbcType=VARCHAR}, #{designatedWorker,jdbcType=VARCHAR}, #{creatorId,jdbcType=VARCHAR}, 
+      #{createdDatetime,jdbcType=TIMESTAMP}, #{lastModifierId,jdbcType=VARCHAR}, #{lastModifiedDatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.topflow.dao.model.TmAssignRec">
+    insert into tm_assign_rec
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="caseNo != null">
+        CASE_NO,
+      </if>
+      <if test="assignType != null">
+        ASSIGN_TYPE,
+      </if>
+      <if test="originWorker != null">
+        ORIGIN_WORKER,
+      </if>
+      <if test="designatedWorker != null">
+        DESIGNATED_WORKER,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="createdDatetime != null">
+        CREATED_DATETIME,
+      </if>
+      <if test="lastModifierId != null">
+        LAST_MODIFIER_ID,
+      </if>
+      <if test="lastModifiedDatetime != null">
+        LAST_MODIFIED_DATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="caseNo != null">
+        #{caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="assignType != null">
+        #{assignType,jdbcType=VARCHAR},
+      </if>
+      <if test="originWorker != null">
+        #{originWorker,jdbcType=VARCHAR},
+      </if>
+      <if test="designatedWorker != null">
+        #{designatedWorker,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDatetime != null">
+        #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifierId != null">
+        #{lastModifierId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifiedDatetime != null">
+        #{lastModifiedDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.topflow.dao.model.TmAssignRecExample" resultType="java.lang.Long">
+    select count(*) from tm_assign_rec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tm_assign_rec
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.caseNo != null">
+        CASE_NO = #{record.caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assignType != null">
+        ASSIGN_TYPE = #{record.assignType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originWorker != null">
+        ORIGIN_WORKER = #{record.originWorker,jdbcType=VARCHAR},
+      </if>
+      <if test="record.designatedWorker != null">
+        DESIGNATED_WORKER = #{record.designatedWorker,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatorId != null">
+        CREATOR_ID = #{record.creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDatetime != null">
+        CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModifierId != null">
+        LAST_MODIFIER_ID = #{record.lastModifierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModifiedDatetime != null">
+        LAST_MODIFIED_DATETIME = #{record.lastModifiedDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tm_assign_rec
+    set ID = #{record.id,jdbcType=BIGINT},
+      CASE_NO = #{record.caseNo,jdbcType=VARCHAR},
+      ASSIGN_TYPE = #{record.assignType,jdbcType=VARCHAR},
+      ORIGIN_WORKER = #{record.originWorker,jdbcType=VARCHAR},
+      DESIGNATED_WORKER = #{record.designatedWorker,jdbcType=VARCHAR},
+      CREATOR_ID = #{record.creatorId,jdbcType=VARCHAR},
+      CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP},
+      LAST_MODIFIER_ID = #{record.lastModifierId,jdbcType=VARCHAR},
+      LAST_MODIFIED_DATETIME = #{record.lastModifiedDatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.topflow.dao.inter.TmHangupRecMapper">
+  <resultMap id="BaseResultMap" type="net.topflow.dao.model.TmHangupRec">
+    <result column="ID" jdbcType="BIGINT" property="id" />
+    <result column="CASE_NO" jdbcType="VARCHAR" property="caseNo" />
+    <result column="HANGUP_REASON" jdbcType="VARCHAR" property="hangupReason" />
+    <result column="HANGUP_DATETIME" jdbcType="TIMESTAMP" property="hangupDatetime" />
+    <result column="HANGUP_REMARK" jdbcType="VARCHAR" property="hangupRemark" />
+    <result column="CREATOR_ID" jdbcType="VARCHAR" property="creatorId" />
+    <result column="CREATED_DATETIME" jdbcType="TIMESTAMP" property="createdDatetime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, CASE_NO, HANGUP_REASON, HANGUP_DATETIME, HANGUP_REMARK, CREATOR_ID, CREATED_DATETIME
+  </sql>
+  <select id="selectByExample" parameterType="net.topflow.dao.model.TmHangupRecExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tm_hangup_rec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="net.topflow.dao.model.TmHangupRecExample">
+    delete from tm_hangup_rec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.topflow.dao.model.TmHangupRec">
+    insert into tm_hangup_rec (ID, CASE_NO, HANGUP_REASON, 
+      HANGUP_DATETIME, HANGUP_REMARK, CREATOR_ID, 
+      CREATED_DATETIME)
+    values (#{id,jdbcType=BIGINT}, #{caseNo,jdbcType=VARCHAR}, #{hangupReason,jdbcType=VARCHAR}, 
+      #{hangupDatetime,jdbcType=TIMESTAMP}, #{hangupRemark,jdbcType=VARCHAR}, #{creatorId,jdbcType=VARCHAR}, 
+      #{createdDatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.topflow.dao.model.TmHangupRec">
+    insert into tm_hangup_rec
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="caseNo != null">
+        CASE_NO,
+      </if>
+      <if test="hangupReason != null">
+        HANGUP_REASON,
+      </if>
+      <if test="hangupDatetime != null">
+        HANGUP_DATETIME,
+      </if>
+      <if test="hangupRemark != null">
+        HANGUP_REMARK,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="createdDatetime != null">
+        CREATED_DATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="caseNo != null">
+        #{caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="hangupReason != null">
+        #{hangupReason,jdbcType=VARCHAR},
+      </if>
+      <if test="hangupDatetime != null">
+        #{hangupDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hangupRemark != null">
+        #{hangupRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDatetime != null">
+        #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.topflow.dao.model.TmHangupRecExample" resultType="java.lang.Long">
+    select count(*) from tm_hangup_rec
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tm_hangup_rec
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.caseNo != null">
+        CASE_NO = #{record.caseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hangupReason != null">
+        HANGUP_REASON = #{record.hangupReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hangupDatetime != null">
+        HANGUP_DATETIME = #{record.hangupDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.hangupRemark != null">
+        HANGUP_REMARK = #{record.hangupRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatorId != null">
+        CREATOR_ID = #{record.creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDatetime != null">
+        CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tm_hangup_rec
+    set ID = #{record.id,jdbcType=BIGINT},
+      CASE_NO = #{record.caseNo,jdbcType=VARCHAR},
+      HANGUP_REASON = #{record.hangupReason,jdbcType=VARCHAR},
+      HANGUP_DATETIME = #{record.hangupDatetime,jdbcType=TIMESTAMP},
+      HANGUP_REMARK = #{record.hangupRemark,jdbcType=VARCHAR},
+      CREATOR_ID = #{record.creatorId,jdbcType=VARCHAR},
+      CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

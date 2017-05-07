@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.topflow.dao.inter.TmCaseHisMapper">
+  <resultMap id="BaseResultMap" type="net.topflow.dao.model.TmCaseHis">
+    <result column="CASE_NO" jdbcType="BIGINT" property="caseNo" />
+    <result column="CASE_STATUS" jdbcType="VARCHAR" property="caseStatus" />
+    <result column="CASE_TYPE" jdbcType="VARCHAR" property="caseType" />
+    <result column="CASE_LEVEL" jdbcType="INTEGER" property="caseLevel" />
+    <result column="WORKER_CODE" jdbcType="VARCHAR" property="workerCode" />
+    <result column="CUST_NAME" jdbcType="VARCHAR" property="custName" />
+    <result column="LOAN_AMOUNT" jdbcType="DOUBLE" property="loanAmount" />
+    <result column="APPLY_DATETIME" jdbcType="TIMESTAMP" property="applyDatetime" />
+    <result column="APPLY_PHONE_NO" jdbcType="VARCHAR" property="applyPhoneNo" />
+    <result column="CREATOR_ID" jdbcType="VARCHAR" property="creatorId" />
+    <result column="CREATED_DATETIME" jdbcType="TIMESTAMP" property="createdDatetime" />
+    <result column="LAST_MODIFIER_ID" jdbcType="VARCHAR" property="lastModifierId" />
+    <result column="LAST_MODIFIED_DATETIME" jdbcType="TIMESTAMP" property="lastModifiedDatetime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CASE_NO, CASE_STATUS, CASE_TYPE, CASE_LEVEL, WORKER_CODE, CUST_NAME, LOAN_AMOUNT, 
+    APPLY_DATETIME, APPLY_PHONE_NO, CREATOR_ID, CREATED_DATETIME, LAST_MODIFIER_ID, LAST_MODIFIED_DATETIME
+  </sql>
+  <select id="selectByExample" parameterType="net.topflow.dao.model.TmCaseHisExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tm_case_his
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="net.topflow.dao.model.TmCaseHisExample">
+    delete from tm_case_his
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.topflow.dao.model.TmCaseHis">
+    insert into tm_case_his (CASE_NO, CASE_STATUS, CASE_TYPE, 
+      CASE_LEVEL, WORKER_CODE, CUST_NAME, 
+      LOAN_AMOUNT, APPLY_DATETIME, APPLY_PHONE_NO, 
+      CREATOR_ID, CREATED_DATETIME, LAST_MODIFIER_ID, 
+      LAST_MODIFIED_DATETIME)
+    values (#{caseNo,jdbcType=BIGINT}, #{caseStatus,jdbcType=VARCHAR}, #{caseType,jdbcType=VARCHAR}, 
+      #{caseLevel,jdbcType=INTEGER}, #{workerCode,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, 
+      #{loanAmount,jdbcType=DOUBLE}, #{applyDatetime,jdbcType=TIMESTAMP}, #{applyPhoneNo,jdbcType=VARCHAR}, 
+      #{creatorId,jdbcType=VARCHAR}, #{createdDatetime,jdbcType=TIMESTAMP}, #{lastModifierId,jdbcType=VARCHAR}, 
+      #{lastModifiedDatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.topflow.dao.model.TmCaseHis">
+    insert into tm_case_his
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="caseNo != null">
+        CASE_NO,
+      </if>
+      <if test="caseStatus != null">
+        CASE_STATUS,
+      </if>
+      <if test="caseType != null">
+        CASE_TYPE,
+      </if>
+      <if test="caseLevel != null">
+        CASE_LEVEL,
+      </if>
+      <if test="workerCode != null">
+        WORKER_CODE,
+      </if>
+      <if test="custName != null">
+        CUST_NAME,
+      </if>
+      <if test="loanAmount != null">
+        LOAN_AMOUNT,
+      </if>
+      <if test="applyDatetime != null">
+        APPLY_DATETIME,
+      </if>
+      <if test="applyPhoneNo != null">
+        APPLY_PHONE_NO,
+      </if>
+      <if test="creatorId != null">
+        CREATOR_ID,
+      </if>
+      <if test="createdDatetime != null">
+        CREATED_DATETIME,
+      </if>
+      <if test="lastModifierId != null">
+        LAST_MODIFIER_ID,
+      </if>
+      <if test="lastModifiedDatetime != null">
+        LAST_MODIFIED_DATETIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="caseNo != null">
+        #{caseNo,jdbcType=BIGINT},
+      </if>
+      <if test="caseStatus != null">
+        #{caseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="caseType != null">
+        #{caseType,jdbcType=VARCHAR},
+      </if>
+      <if test="caseLevel != null">
+        #{caseLevel,jdbcType=INTEGER},
+      </if>
+      <if test="workerCode != null">
+        #{workerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="loanAmount != null">
+        #{loanAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="applyDatetime != null">
+        #{applyDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="applyPhoneNo != null">
+        #{applyPhoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDatetime != null">
+        #{createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastModifierId != null">
+        #{lastModifierId,jdbcType=VARCHAR},
+      </if>
+      <if test="lastModifiedDatetime != null">
+        #{lastModifiedDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.topflow.dao.model.TmCaseHisExample" resultType="java.lang.Long">
+    select count(*) from tm_case_his
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tm_case_his
+    <set>
+      <if test="record.caseNo != null">
+        CASE_NO = #{record.caseNo,jdbcType=BIGINT},
+      </if>
+      <if test="record.caseStatus != null">
+        CASE_STATUS = #{record.caseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseType != null">
+        CASE_TYPE = #{record.caseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseLevel != null">
+        CASE_LEVEL = #{record.caseLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.workerCode != null">
+        WORKER_CODE = #{record.workerCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.custName != null">
+        CUST_NAME = #{record.custName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loanAmount != null">
+        LOAN_AMOUNT = #{record.loanAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.applyDatetime != null">
+        APPLY_DATETIME = #{record.applyDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.applyPhoneNo != null">
+        APPLY_PHONE_NO = #{record.applyPhoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatorId != null">
+        CREATOR_ID = #{record.creatorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDatetime != null">
+        CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastModifierId != null">
+        LAST_MODIFIER_ID = #{record.lastModifierId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastModifiedDatetime != null">
+        LAST_MODIFIED_DATETIME = #{record.lastModifiedDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tm_case_his
+    set CASE_NO = #{record.caseNo,jdbcType=BIGINT},
+      CASE_STATUS = #{record.caseStatus,jdbcType=VARCHAR},
+      CASE_TYPE = #{record.caseType,jdbcType=VARCHAR},
+      CASE_LEVEL = #{record.caseLevel,jdbcType=INTEGER},
+      WORKER_CODE = #{record.workerCode,jdbcType=VARCHAR},
+      CUST_NAME = #{record.custName,jdbcType=VARCHAR},
+      LOAN_AMOUNT = #{record.loanAmount,jdbcType=DOUBLE},
+      APPLY_DATETIME = #{record.applyDatetime,jdbcType=TIMESTAMP},
+      APPLY_PHONE_NO = #{record.applyPhoneNo,jdbcType=VARCHAR},
+      CREATOR_ID = #{record.creatorId,jdbcType=VARCHAR},
+      CREATED_DATETIME = #{record.createdDatetime,jdbcType=TIMESTAMP},
+      LAST_MODIFIER_ID = #{record.lastModifierId,jdbcType=VARCHAR},
+      LAST_MODIFIED_DATETIME = #{record.lastModifiedDatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
